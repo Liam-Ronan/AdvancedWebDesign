@@ -1,4 +1,51 @@
-$danger: rgb(20, 255, 204);
-$light: rgb(89, 18, 156);
+/* Import functions */
+@import "../node_modules/bootstrap/scss/functions";
 
+/* Theme colours */
+$danger: rgb(20, 255, 204);
+$light: rgb(255, 255, 255);
+$primary: rgb(231, 73, 73);
+
+/* $theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark
+) !default; */
+
+/* Globals */
+$enable-rounded:   true !default;
+$enable-shadows:   true !default;
+$enable-gradients: true !default;
+
+/* Variables & mixins */
+/* Importing after because they depend on the new */
+
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+/* Custom Colours */
+$custom-colors: (
+    "primary-light": rgb(219, 218, 218),
+    "secondary-light": rgb(194, 193, 193),
+);
+
+@each $color, $val in $colors {
+    .bg-#{$color} {
+        background-color: $val;
+    }
+
+    .bg-#{$color}-light {
+        background-color: tint-color($val, 60%);
+    }
+}
+
+/* Merging custom colours with the $theme-colors */
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+/* Import Bootstrap.scss */
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
